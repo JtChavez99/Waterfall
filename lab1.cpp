@@ -155,7 +155,7 @@ X11_wrapper::X11_wrapper()
 	if (vi == NULL) {
 		cout << "\n\tno appropriate visual found\n" << endl;
 		exit(EXIT_FAILURE);
-	} 
+	}
 	Colormap cmap = XCreateColormap(dpy, root, vi->visual, AllocNone);
 	XSetWindowAttributes swa;
 	swa.colormap = cmap;
@@ -265,7 +265,7 @@ void check_mouse(XEvent *e)
 			savex = e->xbutton.x;
 			savey = e->xbutton.y;
 			//Code placed here will execute whenever the mouse moves.
-			
+
 			int y = g.yres - e->xbutton.y;
 			for (int i=0; i<10; i++)
 			    makeParticle(e->xbutton.x, y);
@@ -312,13 +312,13 @@ void movement()
 		p->s.center.x > s->center.x - s->width &&
 		p->s.center.x < s->center.x + s->width)
 		p->velocity.y = -(p->velocity.y * 0.5);
-	
+
 
 
 	//check for off-screen
 	if (p->s.center.y < 0.0) {
 		//cout << "off screen" << endl;
-		g.particle[i] = g.particle[g.n-1]; 
+		g.particle[i] = g.particle[g.n-1];
 		--g.n;
 	};
 	}
@@ -326,11 +326,11 @@ void movement()
 
 void render()
 {
-    Rect r;
+  //  Rect r;
     glClear(GL_COLOR_BUFFER_BIT);
 
     //Text
-    ggprint8b(&r, 16, 0x00ff0000, "Requirements");
+  //  ggprint8b(&r, 16, 0x00ff0000, "Requirements");
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	//Draw shapes...
@@ -379,9 +379,3 @@ void render()
 
 
 }
-
-
-
-
-
-
