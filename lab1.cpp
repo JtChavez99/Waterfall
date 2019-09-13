@@ -1,6 +1,6 @@
 //
-//modified by:
-//date:
+//modified by: Jose Chavez
+//date: August 27, 2018
 //
 //3350 Spring 2019 Lab-1
 //This program demonstrates the use of OpenGL and XWindows
@@ -207,6 +207,8 @@ void init_opengl(void)
 	glOrtho(0, g.xres, 0, g.yres, -1, 1);
 	//Set the screen background color
 	glClearColor(0.1, 0.1, 0.1, 1.0);
+
+    glEnable(GL_TEXTURE_2D);
 }
 
 void makeParticle(int x, int y)
@@ -322,6 +324,12 @@ void movement()
 
 void render()
 {
+    Rect r;
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    //Text
+    ggprint8b(&r, 16, 0x00ff0000, "Requirements");
+
 	glClear(GL_COLOR_BUFFER_BIT);
 	//Draw shapes...
 	//draw the box
