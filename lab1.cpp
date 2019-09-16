@@ -52,7 +52,7 @@ struct Vec {
 };
 
 struct Shape {
-	float width = 100, height = 10;
+	float width = 100, height = 13;
 	float radius;
 	Vec center;
 };
@@ -314,7 +314,7 @@ void movement()
 			p->s.center.x > s->center.x - s->width &&
 			p->s.center.x < s->center.x + s->width &&
 			p->s.center.y > s->center.y - s->height)
-			p->velocity.y = -p->velocity.y * 0.7;
+			p->velocity.y = -p->velocity.y * 0.5;
 	}
 
 
@@ -338,10 +338,10 @@ void render()
 	float w,h;
 	for(int i = 0; i < 5; i++){
 		Shape *s = &g.box[i];
-		glColor3ub(90,140,90);
+		glColor3ub(190,140,10);
 		//s = &g.box;
 		glPushMatrix();
-		s->center.x = ((i+1)*50) + 5 * 45;
+		s->center.x = ((i+1)*50) + 5 * 25;
 		s->center.y = 700 - 5*40 - ((i+1)*60);
 		glTranslatef(s->center.x, s->center.y, s->center.z);
 		w = s->width;
@@ -360,7 +360,7 @@ void render()
 	for (int i = 0; i < g.n; i++) {
 		//There is at least one particle to draw.
 		glPushMatrix();
-		glColor3ub(150,160,220);
+		glColor3ub(150,160,20);
 		Vec *c = &g.particle[i].s.center;
 		w = h = 2;
 		glBegin(GL_QUADS);
