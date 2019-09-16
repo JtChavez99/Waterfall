@@ -52,7 +52,7 @@ struct Vec {
 };
 
 struct Shape {
-	float width, height;
+	float width = 100, height = 10;
 	float radius;
 	Vec center;
 };
@@ -65,7 +65,7 @@ struct Particle {
 class Global {
 public:
 	int xres, yres;
-	Shape box;
+	Shape box[5];
 	Particle particle[MAX_PARTICLES];
 	int n;
 	Global();
@@ -125,8 +125,8 @@ Global::Global()
 	xres = 800;
 	yres = 600;
 	//define a box shape
-	box.width = 100;
-	box.height = 10;
+	//box.width = 100;
+	//box.height = 10;
 	//box.center.x = 10 + 5*45;
 	//box.center.y = 700 - 5*60;
 	n = 0;
@@ -308,13 +308,14 @@ void movement()
 	p->velocity.y -= GRAVITY;
 
 	//check for collision with shapes...
-	Shape *s = &g.box;
-	if (p->s.center.y < s->center.y + s->height + 2 &&
-		p->s.center.x > s->center.x - s->width &&
-		p->s.center.x < s->center.x + s->width &&
-		p->s.center.y > s->center.y - s->height)
-		p->velocity.y = -p->velocity.y * 0.7;
-
+	for(int j = 0; j < 5; j++){
+		Shape *s = &g.box[i];
+		if (p->s.center.y < s->center.y + s->height + 2 &&
+			p->s.center.x > s->center.x - s->width &&
+			p->s.center.x < s->center.x + s->width &&
+			p->s.center.y > s->center.y - s->height)
+			p->velocity.y = -p->velocity.y * 0.7;
+	}
 
 
 	//check for off-screen
@@ -343,8 +344,8 @@ void render()
 		glColor3ub(90,140,90);
 		//s = &g.box;
 		glPushMatrix();
-		s->center.x = 10 + 5 * 45 * (i+1);
-		s->center.y = 700 - 5*60 * (i+1);
+		s->center.x = ((i+1)*50) + 5 * 45;
+		s->center.y = 700 - 5*40 - ((i+1)*60);
 		glTranslatef(s->center.x, s->center.y, s->center.z);
 		w = s->width;
 		h = s->height;
