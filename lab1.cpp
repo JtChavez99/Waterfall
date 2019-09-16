@@ -309,7 +309,7 @@ void movement()
 
 	//check for collision with shapes...
 	for(int j = 0; j < 5; j++){
-		Shape *s = &g.box[i];
+		Shape *s = &g.box[j];
 		if (p->s.center.y < s->center.y + s->height + 2 &&
 			p->s.center.x > s->center.x - s->width &&
 			p->s.center.x < s->center.x + s->width &&
@@ -332,10 +332,7 @@ void render()
   //  Rect r;
     glClear(GL_COLOR_BUFFER_BIT);
 
-    //Text
-  //  ggprint8b(&r, 16, 0x00ff0000, "Requirements");
-
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT);
 	//Draw shapes...
 	//draw the box
 	float w,h;
@@ -376,7 +373,8 @@ void render()
 	}
 	//
 	//Draw your 2D text here
-
+	//for (int i = 0; i < 5; i++){
+	    	//&g.box[i].width = 
 
 
 
