@@ -43,7 +43,7 @@ using namespace std;
 #include <GL/glx.h>
 
 const int MAX_PARTICLES = 2000;
-const float GRAVITY     = 0.1;
+const float GRAVITY = 0.15;
 
 //some structures
 
@@ -127,8 +127,8 @@ Global::Global()
 	//define a box shape
 	box.width = 100;
 	box.height = 10;
-	box.center.x = 120 + 5*65;
-	box.center.y = 500 - 5*60;
+	//box.center.x = 10 + 5*45;
+	//box.center.y = 700 - 5*60;
 	n = 0;
 }
 
@@ -225,8 +225,9 @@ void makeParticle(int x, int y)
 	p->s.center.x = x;
 	p->s.center.y = y;
 	p->velocity.y = -0.2;
-	p->velocity.x =  ((double)rand() / (double) RAND_MAX) - 5;
-	p->velocity.x =  ((double)rand() / (double) RAND_MAX) - 5 + 0.2;
+	p->velocity.x =  ((double)rand() / (double) RAND_MAX) + 1;
+	//p->velocity.x =  ((double)rand() / (double) RAND_MAX) + 5 + 0.2;
+	cout << p->velocity.x << endl;
 	++g.n;
 }
 
@@ -308,10 +309,11 @@ void movement()
 
 	//check for collision with shapes...
 	Shape *s = &g.box;
-	if (p->s.center.y < s->center.y + s->height &&
+	if (p->s.center.y < s->center.y + s->height + 2 &&
 		p->s.center.x > s->center.x - s->width &&
-		p->s.center.x < s->center.x + s->width)
-		p->velocity.y = -(p->velocity.y * 0.5);
+		p->s.center.x < s->center.x + s->width &&
+		p->s.center.y > s->center.y - s->height)
+		p->velocity.y = -p->velocity.y * 0.7;
 
 
 
@@ -335,21 +337,25 @@ void render()
 	glClear(GL_COLOR_BUFFER_BIT);
 	//Draw shapes...
 	//draw the box
-	Shape *s = &g.box;
-	glColor3ub(90,140,90);
-	s = &g.box;
-	glPushMatrix();
-	glTranslatef(s->center.x, s->center.y, s->center.z);
-	float w, h;
-	w = s->width;
-	h = s->height;
-	glBegin(GL_QUADS);
-		glVertex2i(-w, -h);
-		glVertex2i(-w,  h);
-		glVertex2i( w,  h);
-		glVertex2i( w, -h);
-	glEnd();
-	glPopMatrix();
+	float w,h;
+	for(int i = 0; i < 5; i++){
+		Shape *s = &g.box[i];
+		glColor3ub(90,140,90);
+		//s = &g.box;
+		glPushMatrix();
+		s->center.x = 10 + 5 * 45 * (i+1);
+		s->center.y = 700 - 5*60 * (i+1);
+		glTranslatef(s->center.x, s->center.y, s->center.z);
+		w = s->width;
+		h = s->height;
+		glBegin(GL_QUADS);
+			glVertex2i(-w, -h);
+			glVertex2i(-w,  h);
+			glVertex2i( w,  h);
+			glVertex2i( w, -h);
+		glEnd();
+		glPopMatrix();
+	}
 	//
 	//Draw particles here
 	//if (g.n > 0) {
