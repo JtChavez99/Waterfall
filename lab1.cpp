@@ -308,6 +308,13 @@ void movement()
 	p->velocity.y -= GRAVITY;
 
 	//check for collision with shapes...
+<<<<<<< HEAD
+	Shape *s = &g.box;
+	if (p->s.center.y < s->center.y + s->height &&
+		p->s.center.x > s->center.x - s->width &&
+		p->s.center.x < s->center.x + s->width)
+		p->velocity.y = -(p->velocity.y * 0.5);
+=======
 	for(int j = 0; j < 5; j++){
 		Shape *s = &g.box[j];
 		if (p->s.center.y < s->center.y + s->height + 2 &&
@@ -317,6 +324,7 @@ void movement()
 			p->velocity.y = -p->velocity.y * 0.5;
 	}
 
+>>>>>>> f53057109dc75893f7a05ef50bd7521cfccbe178
 
 	//check for off-screen
 	if (p->s.center.y < 0.0) {
