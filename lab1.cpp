@@ -313,8 +313,6 @@ void movement()
 		p->s.center.x < s->center.x + s->width)
 		p->velocity.y = -(p->velocity.y * 0.5);
 
-
-
 	//check for off-screen
 	if (p->s.center.y < 0.0) {
 		//cout << "off screen" << endl;
