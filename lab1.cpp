@@ -43,7 +43,7 @@ using namespace std;
 #include <GL/glx.h>
 
 const int MAX_PARTICLES = 2000;
-const float GRAVITY     = 0.1;
+const float GRAVITY = 0.15;
 
 //some structures
 
@@ -52,7 +52,7 @@ struct Vec {
 };
 
 struct Shape {
-	float width, height;
+	float width = 100, height = 13;
 	float radius;
 	Vec center;
 };
@@ -65,7 +65,7 @@ struct Particle {
 class Global {
 public:
 	int xres, yres;
-	Shape box;
+	Shape box[5];
 	Particle particle[MAX_PARTICLES];
 	int n;
 	Global();
@@ -125,10 +125,10 @@ Global::Global()
 	xres = 800;
 	yres = 600;
 	//define a box shape
-	box.width = 100;
-	box.height = 10;
-	box.center.x = 120 + 5*65;
-	box.center.y = 500 - 5*60;
+	//box.width = 100;
+	//box.height = 10;
+	//box.center.x = 10 + 5*45;
+	//box.center.y = 700 - 5*60;
 	n = 0;
 }
 
@@ -225,8 +225,9 @@ void makeParticle(int x, int y)
 	p->s.center.x = x;
 	p->s.center.y = y;
 	p->velocity.y = -0.2;
-	p->velocity.x =  ((double)rand() / (double) RAND_MAX) - 5;
-	p->velocity.x =  ((double)rand() / (double) RAND_MAX) - 5 + 0.2;
+	p->velocity.x =  ((double)rand() / (double) RAND_MAX) + 1;
+	//p->velocity.x =  ((double)rand() / (double) RAND_MAX) + 5 + 0.2;
+	cout << p->velocity.x << endl;
 	++g.n;
 }
 
@@ -307,11 +308,23 @@ void movement()
 	p->velocity.y -= GRAVITY;
 
 	//check for collision with shapes...
+<<<<<<< HEAD
 	Shape *s = &g.box;
 	if (p->s.center.y < s->center.y + s->height &&
 		p->s.center.x > s->center.x - s->width &&
 		p->s.center.x < s->center.x + s->width)
 		p->velocity.y = -(p->velocity.y * 0.5);
+=======
+	for(int j = 0; j < 5; j++){
+		Shape *s = &g.box[j];
+		if (p->s.center.y < s->center.y + s->height + 2 &&
+			p->s.center.x > s->center.x - s->width &&
+			p->s.center.x < s->center.x + s->width &&
+			p->s.center.y > s->center.y - s->height)
+			p->velocity.y = -p->velocity.y * 0.5;
+	}
+
+>>>>>>> f53057109dc75893f7a05ef50bd7521cfccbe178
 
 	//check for off-screen
 	if (p->s.center.y < 0.0) {
@@ -327,34 +340,35 @@ void render()
   //  Rect r;
     glClear(GL_COLOR_BUFFER_BIT);
 
-    //Text
-  //  ggprint8b(&r, 16, 0x00ff0000, "Requirements");
-
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT);
 	//Draw shapes...
 	//draw the box
-	Shape *s = &g.box;
-	glColor3ub(90,140,90);
-	s = &g.box;
-	glPushMatrix();
-	glTranslatef(s->center.x, s->center.y, s->center.z);
-	float w, h;
-	w = s->width;
-	h = s->height;
-	glBegin(GL_QUADS);
-		glVertex2i(-w, -h);
-		glVertex2i(-w,  h);
-		glVertex2i( w,  h);
-		glVertex2i( w, -h);
-	glEnd();
-	glPopMatrix();
+	float w,h;
+	for(int i = 0; i < 5; i++){
+		Shape *s = &g.box[i];
+		glColor3ub(190,140,10);
+		//s = &g.box;
+		glPushMatrix();
+		s->center.x = ((i+1)*50) + 5 * 25;
+		s->center.y = 700 - 5*40 - ((i+1)*60);
+		glTranslatef(s->center.x, s->center.y, s->center.z);
+		w = s->width;
+		h = s->height;
+		glBegin(GL_QUADS);
+			glVertex2i(-w, -h);
+			glVertex2i(-w,  h);
+			glVertex2i( w,  h);
+			glVertex2i( w, -h);
+		glEnd();
+		glPopMatrix();
+	}
 	//
 	//Draw particles here
 	//if (g.n > 0) {
 	for (int i = 0; i < g.n; i++) {
 		//There is at least one particle to draw.
 		glPushMatrix();
-		glColor3ub(150,160,220);
+		glColor3ub(150,160,20);
 		Vec *c = &g.particle[i].s.center;
 		w = h = 2;
 		glBegin(GL_QUADS);
@@ -367,7 +381,8 @@ void render()
 	}
 	//
 	//Draw your 2D text here
-
+	//for (int i = 0; i < 5; i++){
+	    	//&g.box[i].width = 
 
 
 
