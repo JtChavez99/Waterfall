@@ -41,6 +41,7 @@ using namespace std;
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #include <GL/glx.h>
+#include "fonts.h"
 
 const int MAX_PARTICLES = 2000;
 const float GRAVITY = 0.15;
@@ -308,13 +309,6 @@ void movement()
 	p->velocity.y -= GRAVITY;
 
 	//check for collision with shapes...
-<<<<<<< HEAD
-	Shape *s = &g.box;
-	if (p->s.center.y < s->center.y + s->height &&
-		p->s.center.x > s->center.x - s->width &&
-		p->s.center.x < s->center.x + s->width)
-		p->velocity.y = -(p->velocity.y * 0.5);
-=======
 	for(int j = 0; j < 5; j++){
 		Shape *s = &g.box[j];
 		if (p->s.center.y < s->center.y + s->height + 2 &&
@@ -324,7 +318,6 @@ void movement()
 			p->velocity.y = -p->velocity.y * 0.5;
 	}
 
->>>>>>> f53057109dc75893f7a05ef50bd7521cfccbe178
 
 	//check for off-screen
 	if (p->s.center.y < 0.0) {
@@ -337,12 +330,18 @@ void movement()
 
 void render()
 {
-  //  Rect r;
+    Rect r;
     glClear(GL_COLOR_BUFFER_BIT);
 
 	//glClear(GL_COLOR_BUFFER_BIT);
 	//Draw shapes...
 	//draw the box
+	//Waterfall word array
+	const char * text[] = {"Requirements",
+	   	        "Design", 
+			"Implementation", 
+			"Verification", 
+			"Maintenance"};
 	float w,h;
 	for(int i = 0; i < 5; i++){
 		Shape *s = &g.box[i];
@@ -361,6 +360,12 @@ void render()
 			glVertex2i( w, -h);
 		glEnd();
 		glPopMatrix();
+
+
+
+		//2d text
+		
+		ggprint8b(&r, 16, 0x00ffff44, text[i]);
 	}
 	//
 	//Draw particles here
