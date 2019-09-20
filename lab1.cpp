@@ -338,9 +338,9 @@ void render()
 	//draw the box
 	//Waterfall word array
 	const char * text[] = {"Requirements",
-	   	        "Design", 
-			"Implementation", 
-			"Verification", 
+	   	        "Design",
+			"Implementation",
+			"Verification",
 			"Maintenance"};
 	float w,h;
 	for(int i = 0; i < 5; i++){
@@ -364,7 +364,10 @@ void render()
 
 
 		//2d text
-		
+		r.center = 0;
+		r.left = g.box[i].center.x;
+		r.bot = g.box[i].center.y;
+
 		ggprint8b(&r, 16, 0x00ffff44, text[i]);
 	}
 	//
@@ -387,7 +390,7 @@ void render()
 	//
 	//Draw your 2D text here
 	//for (int i = 0; i < 5; i++){
-	    	//&g.box[i].width = 
+	    	//&g.box[i].width =
 
 
 

@@ -1,8 +1,8 @@
 # cs335 lab1
 # to compile your project, type make and press enter
 
-CFLAGS = -I ./include
-LFLAGS = -lrt -lX11 -lGLU -lGL -pthread -lm 
+CFLAGS = -I ./include -I/opt/X11/include
+LFLAGS = -lrt -lX11 -lGLU -lGL -pthread -lm -L/opt/X11/lib -lGL -lX11
 
 all: lab1
 
@@ -12,4 +12,3 @@ lab1: lab1.cpp
 clean:
 	rm -f lab1
 	rm -f *.o
-
