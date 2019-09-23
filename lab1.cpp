@@ -1,8 +1,5 @@
-//change
-//:x
-//
-//modified by: Jose Chavez
-//date: August 27, 2018
+//modified by: Jose Chavez & Diego Diaz
+//Date: August 27, 2018
 //
 //3350 Spring 2019 Lab-1
 //This program demonstrates the use of OpenGL and XWindows
@@ -332,6 +329,8 @@ void movement()
 void render()
 {
     Rect r;
+    r.center = 0;
+
     glClear(GL_COLOR_BUFFER_BIT);
 
 	//glClear(GL_COLOR_BUFFER_BIT);
@@ -346,7 +345,7 @@ void render()
 	float w,h;
 	for(int i = 0; i < 5; i++){
 		Shape *s = &g.box[i];
-		glColor3ub(190,140,10);
+		glColor3ub(47,79,79);
 		//s = &g.box;
 		glPushMatrix();
 		s->center.x = ((i+1)*50) + 5 * 25;
@@ -365,11 +364,10 @@ void render()
 
 
 		//2d text
-		r.center = 0;
 		r.left = g.box[i].center.x;
 		r.bot = g.box[i].center.y;
 
-		ggprint8b(&r, 16, 0x00ffff44, text[i]);
+		ggprint8b(&r, 16, 0x0098ff98, text[i]);
 	}
 	//
 	//Draw particles here
@@ -388,10 +386,7 @@ void render()
 		glEnd();
 		glPopMatrix();
 	}
-	//
-	//Draw your 2D text here
-	//for (int i = 0; i < 5; i++){
-	    	//&g.box[i].width =
+
 
 
 
