@@ -307,22 +307,21 @@ void movement()
 	p->velocity.y -= GRAVITY;
 
 	//check for collision with shapes...
-	for(int j = 0; j < 5; j++){
-		Shape *s = &g.box[j];
-		if (p->s.center.y < s->center.y + s->height + 2 &&
-			p->s.center.x > s->center.x - s->width &&
-			p->s.center.x < s->center.x + s->width &&
-			p->s.center.y > s->center.y - s->height)
-			p->velocity.y = -p->velocity.y * 0.5;
-	}
+		for(int j = 0; j < 5; j++) {
+			Shape *s = &g.box[j];
+			if (p->s.center.y < s->center.y + s->height + 2 &&
+				p->s.center.x > s->center.x - s->width &&
+				p->s.center.x < s->center.x + s->width &&
+				p->s.center.y > s->center.y - s->height)
+				p->velocity.y = -p->velocity.y * 0.5;
+		}
 
 
 	//check for off-screen
-	if (p->s.center.y < 0.0) {
-		//cout << "off screen" << endl;
-		g.particle[i] = g.particle[g.n-1];
-		--g.n;
-	};
+		if (p->s.center.y < 0.0) {
+			g.particle[i] = g.particle[g.n-1];
+			--g.n;
+		}
 	}
 }
 
@@ -343,7 +342,7 @@ void render()
 			"Verification",
 			"Maintenance"};
 	float w,h;
-	for(int i = 0; i < 5; i++){
+	for(int i = 0; i < 5; i++) {
 		Shape *s = &g.box[i];
 		glColor3ub(47,79,79);
 		//s = &g.box;
@@ -361,8 +360,6 @@ void render()
 		glEnd();
 		glPopMatrix();
 
-
-
 		//2d text
 		r.left = g.box[i].center.x;
 		r.bot = g.box[i].center.y;
@@ -371,7 +368,6 @@ void render()
 	}
 	//
 	//Draw particles here
-	//if (g.n > 0) {
 	for (int i = 0; i < g.n; i++) {
 		//There is at least one particle to draw.
 		glPushMatrix();
