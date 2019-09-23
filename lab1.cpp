@@ -212,6 +212,7 @@ void init_opengl(void)
 	glClearColor(0.1, 0.1, 0.1, 1.0);
 
     glEnable(GL_TEXTURE_2D);
+    	initialize_fonts();
 }
 
 void makeParticle(int x, int y)
