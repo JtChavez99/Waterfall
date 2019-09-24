@@ -344,7 +344,7 @@ void render()
 	float w,h;
 	for(int i = 0; i < 5; i++) {
 		Shape *s = &g.box[i];
-		glColor3ub(47,79,79);
+		glColor3ub(128,128,128);
 		//s = &g.box;
 		glPushMatrix();
 		s->center.x = ((i+1)*50) + 5 * 25;
@@ -361,8 +361,8 @@ void render()
 		glPopMatrix();
 
 		//2d text
-		r.left = g.box[i].center.x;
-		r.bot = g.box[i].center.y;
+		r.left = g.box[i].center.x - i * 4.5 - 20;
+		r.bot = g.box[i].center.y - 5;
 
 		ggprint8b(&r, 16, 0x0098ff98, text[i]);
 	}
@@ -371,7 +371,7 @@ void render()
 	for (int i = 0; i < g.n; i++) {
 		//There is at least one particle to draw.
 		glPushMatrix();
-		glColor3ub(150,160,20);
+		glColor3ub(152,255,152);
 		Vec *c = &g.particle[i].s.center;
 		w = h = 2;
 		glBegin(GL_QUADS);
